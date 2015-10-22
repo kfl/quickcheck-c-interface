@@ -10,7 +10,7 @@ int binsearch1(int *arr, size_t len, int key) {
     else if (arr[m] > key) u = m;
     else return m;
   }
-  
+
   return -1;
 }
 
@@ -24,7 +24,7 @@ int binsearch2(int *arr, size_t len, int key) {
     else if (arr[m] > key) u = m-1;
     else return m;
   }
-  
+
   return -1;
 }
 
@@ -39,18 +39,33 @@ int binsearch3(int *arr, size_t len, int key) {
       else return m;
     }
   }
-  
+
+  return -1;
+}
+
+int binsearch4(int *arr, size_t len, int key) {
+  int l=0, u=len-1;
+
+  while(l <= u) {
+    size_t m = (l+u)/2; // Yes, we have a known bug if humongous arrays. That's OK
+    if      (arr[m] == key) return m;
+    else if (arr[m] < key)  l = m+1;
+    else                    u = m-1;
+  }
+
   return -1;
 }
 
 
-
 /* int main() { */
 /*   int arr[5] = {10,20,30,40,50}; */
-/*   printf("Res: %d\n", binsearch3(arr, 5, 10)); */
-/*   printf("Res: %d\n", binsearch3(arr, 5, 50)); */
-/*   printf("Res: %d\n", binsearch3(arr, 5, 40)); */
-/*   printf("Res: %d\n", binsearch3(arr, 5, 100)); */
-/*   printf("Res: %d\n", binsearch3(arr, 0, 10)); */
+/*   printf("Res: %d\n", binsearch4(arr, 5, 10)); */
+/*   printf("Res: %d\n", binsearch4(arr, 5, 50)); */
+/*   printf("Res: %d\n", binsearch4(arr, 5, 40)); */
+/*   printf("Res: %d\n", binsearch4(arr, 5, 100)); */
+/*   printf("Res: %d\n", binsearch4(arr, 0, 10)); */
+
+/*   int arr2[1] = {0}; */
+/*   printf("Res: %d\n", binsearch4(arr2, 1, -1));   */
 /*   return 0; */
 /* } */
