@@ -22,9 +22,10 @@ prop_binsearch() ->
            end,
     ?FORALL({K, L}, {int(), list(int())},
             begin
-                P = eqc_c:create_array(int, L),
-                S = length(L),
+                Sorted = lists:sort(L),
+                P = eqc_c:create_array(int, Sorted),
+                Size = length(Sorted),
 
-                equals(index(L, K, 0),
-                       bsearch:binsearch4(P, S, K))
+                equals(index(Sorted, K, 0),
+                       bsearch:binsearch4(P, Size, K))
             end)).

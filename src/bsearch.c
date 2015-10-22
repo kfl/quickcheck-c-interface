@@ -66,6 +66,7 @@ int binsearch4(int *arr, size_t len, int key) {
 /*   printf("Res: %d\n", binsearch4(arr, 0, 10)); */
 
 /*   int arr2[1] = {0}; */
-/*   printf("Res: %d\n", binsearch4(arr2, 1, -1));   */
+/*   printf("Res: %d\n", binsearch4(arr2, 1, -1)); */
+
 /*   return 0; */
 /* } */
