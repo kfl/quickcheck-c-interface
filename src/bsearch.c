@@ -45,12 +45,12 @@ int binsearch3(int *arr, size_t len, int key) {
 
 
 
-int main() {
-  int arr[5] = {10,20,30,40,50};
-  printf("Res: %d\n", binsearch3(arr, 5, 10));
-  printf("Res: %d\n", binsearch3(arr, 5, 50));
-  printf("Res: %d\n", binsearch3(arr, 5, 40));
-  printf("Res: %d\n", binsearch3(arr, 5, 100));
-  printf("Res: %d\n", binsearch3(arr, 0, 10));
-  return 0;
-}
+/* int main() { */
+/*   int arr[5] = {10,20,30,40,50}; */
+/*   printf("Res: %d\n", binsearch3(arr, 5, 10)); */
+/*   printf("Res: %d\n", binsearch3(arr, 5, 50)); */
+/*   printf("Res: %d\n", binsearch3(arr, 5, 40)); */
+/*   printf("Res: %d\n", binsearch3(arr, 5, 100)); */
+/*   printf("Res: %d\n", binsearch3(arr, 0, 10)); */
+/*   return 0; */
+/* } */
