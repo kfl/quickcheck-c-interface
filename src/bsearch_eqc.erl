@@ -50,6 +50,6 @@ prop_binsearch_better_examples() ->
             end))).
 
 good_key(L) ->
-    frequency([ {1, int()}
-              , {9, elements(L)}
-              ]).
+    frequency([ {1, int()} | 
+                [ {9, elements(L)} || L /= [] ]]
+              ).
