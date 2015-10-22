@@ -25,4 +25,4 @@ prop_binsearch1() ->
             S = length(L),
 
             equals(index(L, K, 0),
-                   bsearch:binsearch1(P, S, K))).
+                   bsearch:binsearch1(P, S, K)))).
