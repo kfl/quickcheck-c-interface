@@ -16,7 +16,7 @@ index([_ | T], K, I) ->
     index(T, K, I+1).
 
 
-prop_binsearch1() ->
+prop_binsearch2() ->
     ?SETUP(fun () -> eqc_c:start(bsearch),
                      fun() -> ok end
            end,
@@ -26,5 +26,5 @@ prop_binsearch1() ->
                 S = length(L),
 
                 equals(index(L, K, 0),
-                       bsearch:binsearch1(P, S, K))
+                       bsearch:binsearch2(P, S, K))
             end)).
