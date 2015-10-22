@@ -22,7 +22,7 @@ prop_binsearch() ->
            end,
     ?FORALL({K, L}, {int(), list(int())},
             begin
-                Sorted = lists:sort(L),
+                Sorted = lists:usort(L),
                 P = eqc_c:create_array(int, Sorted),
                 Size = length(Sorted),
 
@@ -41,7 +41,7 @@ prop_binsearch_better_examples() ->
     ?FORALL(L, list(int()),
     ?FORALL(K, good_key(L),
             begin
-                Sorted = lists:sort(L),
+                Sorted = lists:usort(L),
                 P = eqc_c:create_array(int, Sorted),
                 Size = length(Sorted),
 
