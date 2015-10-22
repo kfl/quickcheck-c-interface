@@ -39,14 +39,15 @@ prop_binsearch_better_examples() ->
                      fun() -> ok end
            end,
     ?FORALL(L, list(int()),
-    ?FORALL(K, good_key(L),
+    ?LETSHRINK(K, good_key(L),
             begin
                 Sorted = lists:usort(L),
                 P = eqc_c:create_array(int, Sorted),
                 Size = length(Sorted),
 
+                ?WHENFAIL(io:format("Trying to find key: ~p~n", [K]),
                 equals(index(Sorted, K, 0),
-                       bsearch:binsearch4(P, Size, K))
+                       bsearch:binsearch4(P, Size, K)))
             end))).
 
 good_key(L) ->
