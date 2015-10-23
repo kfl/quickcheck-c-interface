@@ -129,12 +129,10 @@ int binsearch8(int *arr, size_t len, int key) {
 
   while(l < u) {
     size_t m = (l+u)/2; // Yes, we have a known bug if we have humongous arrays. That's OK
-    printf("%d %d %zu\n", l, u, m);
     if (arr[m] < key) l = m+1;
     else              u = m;
   }
 
-  printf("%d %d\n", l, u);
   if (l == u && arr[l] == key) return l;
   else return -1;
 }
