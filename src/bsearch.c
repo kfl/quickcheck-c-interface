@@ -84,10 +84,7 @@ int binsearch5(int *arr, size_t len, int key) {
 }
 
 
-/* As correct as binsearch4, but with deferred equality check. The
-   deferred equality check means that we'll gain the property that the
-   returned index is always the smallest index, even if we have
-   duplicated elements in the array.
+/* BUGGY, try an array with one element. Don't uninialized variables. See binsearch7
  */
 int binsearch6(int *arr, size_t len, int key) {
   int l=0, u=len-1;
@@ -99,25 +96,48 @@ int binsearch6(int *arr, size_t len, int key) {
     else              u = m-1;
   }
 
+  printf("%d %d %zu\n", l, u, m);
+  if (l == u && arr[m] == key) return m;
+  else return -1;
+}
+
+
+/* As correct as binsearch4, but with deferred equality check. The
+   deferred equality check means that we'll gain the property that the
+   returned index is always the smallest index, even if we have
+   duplicated elements in the array.
+ */
+int binsearch7(int *arr, size_t len, int key) {
+  int l=0, u=len-1;
+  size_t m = l;
+  
+  while(l < u) {
+    m = (l+u)/2; // Yes, we have a known bug if we have humongous arrays. That's OK
+    if (arr[m] < key) l = m+1;
+    else              u = m-1;
+  }
+
+  printf("%d %d %zu\n", l, u, m);
   if (l == u && arr[m] == key) return m;
   else return -1;
 }
 
 
 
-
-
-
 /* int main() { */
 /*   int arr[5] = {10,20,30,40,50}; */
-/*   printf("Res: %d\n", binsearch4(arr, 5, 10)); */
-/*   printf("Res: %d\n", binsearch4(arr, 5, 50)); */
-/*   printf("Res: %d\n", binsearch4(arr, 5, 40)); */
-/*   printf("Res: %d\n", binsearch4(arr, 5, 100)); */
-/*   printf("Res: %d\n", binsearch4(arr, 0, 10)); */
+/*   printf("Res: %d\n", binsearch7(arr, 5, 10)); */
+/*   printf("Res: %d\n", binsearch7(arr, 5, 50)); */
+/*   printf("Res: %d\n", binsearch7(arr, 5, 40)); */
+/*   printf("Res: %d\n", binsearch7(arr, 5, 100)); */
+/*   printf("Res: %d\n", binsearch7(arr, 0, 10)); */
 
 /*   int arr2[1] = {0}; */
-/*   printf("Res: %d\n", binsearch4(arr2, 1, -1)); */
+/*   printf("Res: %d\n", binsearch7(arr2, 1, -1)); */
+
+
+/*   int arr3[1] = {0}; */
+/*   printf("Res: %d\n", binsearch7(arr3, 1, 0)); */
 
 /*   return 0; */
 /* } */
