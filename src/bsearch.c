@@ -72,7 +72,7 @@ int binsearch4(int *arr, size_t len, int key) {
 int binsearch5(int *arr, size_t len, int key) {
   int l=0, u=len-1;
   size_t m;
-  
+
   while(l < u) {
     m = (l+u)/2; // Yes, we have a known bug if we have humongous arrays. That's OK
     if (arr[m] < key) l = m+1;
@@ -89,7 +89,7 @@ int binsearch5(int *arr, size_t len, int key) {
 int binsearch6(int *arr, size_t len, int key) {
   int l=0, u=len-1;
   size_t m;
-  
+
   while(l < u) {
     m = (l+u)/2; // Yes, we have a known bug if we have humongous arrays. That's OK
     if (arr[m] < key) l = m+1;
@@ -97,6 +97,23 @@ int binsearch6(int *arr, size_t len, int key) {
   }
 
   printf("%d %d %zu\n", l, u, m);
+  if (l == u && arr[m] == key) return m;
+  else return -1;
+}
+
+
+/* BUGGY, try an array with two elements, which both have the same value
+ */
+int binsearch7(int *arr, size_t len, int key) {
+  int l=0, u=len-1;
+  size_t m = l;
+
+  while(l < u) {
+    m = (l+u)/2; // Yes, we have a known bug if we have humongous arrays. That's OK
+    if (arr[m] < key) l = m+1;
+    else              u = m-1;
+  }
+
   if (l == u && arr[m] == key) return m;
   else return -1;
 }
@@ -107,37 +124,50 @@ int binsearch6(int *arr, size_t len, int key) {
    returned index is always the smallest index, even if we have
    duplicated elements in the array.
  */
-int binsearch7(int *arr, size_t len, int key) {
+int binsearch8(int *arr, size_t len, int key) {
   int l=0, u=len-1;
-  size_t m = l;
-  
+
   while(l < u) {
-    m = (l+u)/2; // Yes, we have a known bug if we have humongous arrays. That's OK
+    size_t m = (l+u)/2; // Yes, we have a known bug if we have humongous arrays. That's OK
+    printf("%d %d %zu\n", l, u, m);
     if (arr[m] < key) l = m+1;
-    else              u = m-1;
+    else              u = m;
   }
 
-  printf("%d %d %zu\n", l, u, m);
-  if (l == u && arr[m] == key) return m;
+  printf("%d %d\n", l, u);
+  if (l == u && arr[l] == key) return l;
   else return -1;
 }
 
 
 
 /* int main() { */
-/*   int arr[5] = {10,20,30,40,50}; */
-/*   printf("Res: %d\n", binsearch7(arr, 5, 10)); */
-/*   printf("Res: %d\n", binsearch7(arr, 5, 50)); */
-/*   printf("Res: %d\n", binsearch7(arr, 5, 40)); */
-/*   printf("Res: %d\n", binsearch7(arr, 5, 100)); */
-/*   printf("Res: %d\n", binsearch7(arr, 0, 10)); */
 
-/*   int arr2[1] = {0}; */
-/*   printf("Res: %d\n", binsearch7(arr2, 1, -1)); */
+/*   { */
+/*     int arr[5] = {10,20,30,40,50}; */
+/*     printf("Res: %d expected %d\n", binsearch8(arr, 5, 10), 0); */
+/*     printf("Res: %d expected %d\n", binsearch8(arr, 5, 50), 4); */
+/*     printf("Res: %d expected %d\n", binsearch8(arr, 5, 40), 3); */
+/*     printf("Res: %d expected %d\n", binsearch8(arr, 5, 100), -1); */
+/*     printf("Res: %d expected %d\n", binsearch8(arr, 0, 10), -1); */
+/*   } */
 
 
-/*   int arr3[1] = {0}; */
-/*   printf("Res: %d\n", binsearch7(arr3, 1, 0)); */
+/*   // Test-cases found by QuickCheck */
+/*   { */
+/*     int arr[1] = {0}; */
+/*     printf("Res: %d\n", binsearch8(arr, 1, -1)); */
+/*   } */
+
+/*   { */
+/*     int arr[1] = {0}; */
+/*     printf("Res: %d\n", binsearch8(arr, 1, 0)); */
+/*   } */
+
+/*   { */
+/*     int arr[2] = {0,0}; */
+/*     printf("Res: %d\n", binsearch8(arr, 2, 0)); */
+/*   } */
 
 /*   return 0; */
 /* } */
