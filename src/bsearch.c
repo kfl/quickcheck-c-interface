@@ -67,10 +67,7 @@ int binsearch4(int *arr, size_t len, int key) {
   return -1;
 }
 
-/* As correct as binsearch4, but with deferred equality check. The
-   deferred equality check means that we'll gain the property that the
-   returned index is always the smallest index, even if we have
-   duplicated elements in the array.
+/* BUGGY. Attempt at implementing deferred equality check. See binsearch6 instead.
  */
 int binsearch5(int *arr, size_t len, int key) {
   int l=0, u=len-1;
@@ -83,6 +80,26 @@ int binsearch5(int *arr, size_t len, int key) {
   }
 
   if (arr[m] == key) return m;
+  else return -1;
+}
+
+
+/* As correct as binsearch4, but with deferred equality check. The
+   deferred equality check means that we'll gain the property that the
+   returned index is always the smallest index, even if we have
+   duplicated elements in the array.
+ */
+int binsearch6(int *arr, size_t len, int key) {
+  int l=0, u=len-1;
+  size_t m;
+  
+  while(l < u) {
+    m = (l+u)/2; // Yes, we have a known bug if we have humongous arrays. That's OK
+    if (arr[m] < key) l = m+1;
+    else              u = m-1;
+  }
+
+  if (l == u && arr[m] == key) return m;
   else return -1;
 }
 

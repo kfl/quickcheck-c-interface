@@ -88,6 +88,6 @@ prop_binsearch_deferred_equality() ->
 
                 ?WHENFAIL(io:format("Trying to find key: ~p~n", [K]),
                 equals(index(Sorted, K, 0),
-                       bsearch:binsearch5(P, Size, K)))
+                       bsearch:binsearch6(P, Size, K)))
             end))).
 
