@@ -16,6 +16,22 @@ index([_ | T], K, I) ->
     index(T, K, I+1).
 
 
+
+prop_binsearch_buggy() ->
+    ?SETUP(fun () -> eqc_c:start(bsearch),
+                     fun() -> ok end
+           end,
+    ?FORALL({K, L}, {int(), list(int())},
+            begin
+                Sorted = lists:usort(L),
+                P = eqc_c:create_array(int, Sorted),
+                Size = length(Sorted),
+
+                equals(index(Sorted, K, 0),
+                       bsearch:binsearch3(P, Size, K))
+            end)).
+
+
 prop_binsearch() ->
     ?SETUP(fun () -> eqc_c:start(bsearch),
                      fun() -> ok end
