@@ -27,8 +27,8 @@ prop_binsearch_buggy() ->
                 P = eqc_c:create_array(int, Sorted),
                 Size = length(Sorted),
 
-                equals(index(Sorted, K, 0),
-                       bsearch:binsearch3(P, Size, K))
+                fails(equals(index(Sorted, K, 0),
+                             bsearch:binsearch3(P, Size, K)))
             end)).
 
 
