@@ -49,7 +49,7 @@ prop_binsearch() ->
 
 
 % Version, where we with much higher probability generate keys
-% actually found in the list/
+% actually found in the list.
 prop_binsearch_better_examples() ->
     ?SETUP(fun () -> eqc_c:start(bsearch),
                      fun() -> ok end
@@ -70,3 +70,24 @@ good_key(L) ->
     frequency([ {1, int()} | 
                 [ {9, elements(L)} || L /= [] ]]
               ).
+
+
+% Deferred equality gives us the property the we always return the
+% smallest index, which means that we can now deal the duplicate
+% elements.
+prop_binsearch_deferred_equality() ->
+    ?SETUP(fun () -> eqc_c:start(bsearch),
+                     fun() -> ok end
+           end,
+    ?FORALL(L, list(int()),
+    ?LETSHRINK(K, good_key(L),
+            begin
+                Sorted = lists:sort(L),
+                P = eqc_c:create_array(int, Sorted),
+                Size = length(Sorted),
+
+                ?WHENFAIL(io:format("Trying to find key: ~p~n", [K]),
+                equals(index(Sorted, K, 0),
+                       bsearch:binsearch5(P, Size, K)))
+            end))).
+
