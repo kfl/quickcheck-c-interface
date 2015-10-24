@@ -28,7 +28,7 @@ prop_binsearch_buggy() ->
                 Size = length(Sorted),
 
                 fails(equals(index(Sorted, K, 0),
-                             bsearch:binsearch3(P, Size, K)))
+                             catch bsearch:binsearch3(P, Size, K)))
             end)).
 
 
