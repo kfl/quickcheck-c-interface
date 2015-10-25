@@ -104,7 +104,7 @@ prop_binsearch_deferred_equality_buggy(Fun) ->
                 Size = length(Sorted),
 
                 fails(equals({Sorted, K, index(Sorted, K, 0)},
-                             {Sorted, K, bsearch:Fun(P, Size, K)}))
+                             {Sorted, K, catch bsearch:Fun(P, Size, K)}))
             end))).
 
 prop_binsearch5() -> prop_binsearch_deferred_equality_buggy(binsearch5). 
