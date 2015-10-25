@@ -91,3 +91,24 @@ prop_binsearch_deferred_equality() ->
                        bsearch:binsearch8(P, Size, K)))
             end))).
 
+% Helper function for buggy deferred equality functions
+prop_binsearch_deferred_equality_buggy(Fun) ->
+    ?SETUP(fun () -> eqc_c:start(bsearch),
+                     fun() -> ok end
+           end,
+    ?FORALL(L, list(int()),
+    ?LETSHRINK(K, good_key(L),
+            begin
+                Sorted = lists:sort(L),
+                P = eqc_c:create_array(int, Sorted),
+                Size = length(Sorted),
+
+                fails(
+                  ?WHENFAIL(io:format("Trying to find key: ~p~n", [K]),
+                            equals(index(Sorted, K, 0),
+                                   bsearch:Fun(P, Size, K))))
+            end))).
+
+prop_binsearch5() -> prop_binsearch_deferred_equality_buggy(binsearch5). 
+prop_binsearch6() -> prop_binsearch_deferred_equality_buggy(binsearch6). 
+prop_binsearch7() -> prop_binsearch_deferred_equality_buggy(binsearch7). 
