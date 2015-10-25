@@ -68,7 +68,7 @@ prop_binsearch_better_examples() ->
 
 good_key(L) ->
     frequency([ {1, int()} | 
-                [ {9, elements(L)} || L /= [] ]]
+                [ {9, elements(lists:usort(L))} || L /= [] ]]
               ).
 
 
