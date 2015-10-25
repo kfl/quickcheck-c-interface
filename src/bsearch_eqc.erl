@@ -48,8 +48,8 @@ prop_binsearch() ->
 
 
 
-% Version, where we with much higher probability generate keys
-% actually found in the list.
+% Version, where we generate keys actually found in the list with much
+% higher probability.
 prop_binsearch_better_examples() ->
     ?SETUP(fun () -> eqc_c:start(bsearch),
                      fun() -> ok end
@@ -72,9 +72,9 @@ good_key(L) ->
               ).
 
 
-% Deferred equality gives us the property the we always return the
-% smallest index, which means that we can now deal the duplicate
-% elements.
+% Deferred equality gives us the property that we always return the
+% smallest index, which means that we can deal the duplicate elements
+% in the testing (hence we use lists:sort instead of lists:usort).
 prop_binsearch_deferred_equality() ->
     ?SETUP(fun () -> eqc_c:start(bsearch),
                      fun() -> ok end
