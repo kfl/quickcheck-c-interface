@@ -103,10 +103,8 @@ prop_binsearch_deferred_equality_buggy(Fun) ->
                 P = eqc_c:create_array(int, Sorted),
                 Size = length(Sorted),
 
-                fails(
-                  ?WHENFAIL(io:format("Trying to find key: ~p~n", [K]),
-                            equals(index(Sorted, K, 0),
-                                   bsearch:Fun(P, Size, K))))
+                fails(equals({Sorted, K, index(Sorted, K, 0)},
+                             {Sorted, K, bsearch:Fun(P, Size, K)}))
             end))).
 
 prop_binsearch5() -> prop_binsearch_deferred_equality_buggy(binsearch5). 
